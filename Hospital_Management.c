@@ -2,8 +2,8 @@
 #include <string.h>
 #include <stdlib.h>
 #include<ctype.h>
-//#include<conio.h>
-//#include<windows.h>
+#include<conio.h>
+#include<windows.h>
 
 void loginscreen();
 void title();//Display title
