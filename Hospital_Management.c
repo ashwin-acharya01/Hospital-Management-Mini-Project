@@ -2,8 +2,8 @@
 #include <string.h>
 #include <stdlib.h>
 #include<ctype.h>
-//#include<conio.h>
-//#include<windows.h>
+#include<conio.h>
+#include<windows.h>
 
 void loginscreen();
 void title();//Display title
@@ -16,7 +16,11 @@ void EditRecord();
 void DeleteRecord();
 void Exit();
 void gender();
-
+void goto_xy(short x , short y)
+{
+  COORD pos = {x , y};
+  SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), pos); 
+}
 
 
 struct Data
@@ -24,7 +28,7 @@ struct Data
     char FirstName[20];
     char MiddleName[20];
     char LastName[20];
-    // char Address[50];
+    char Gender;
     char ContactNo[11];
     char Age[5];
     char Village[20];
@@ -588,4 +592,49 @@ void DisplayRecord(){
 	fclose(two);
 }
 
+void SearchRecord()
+{
+  int row;
+  system("cls");
+  title();
+  FILE *op;
+  op = fopen("Record.txt","r");
 
+  printf("\n\n\t\t\t***********Patients Record***********\n");
+  goto_xy(1,15);
+  printf("Full Name");
+  goto_xy(20,15);
+  printf("Gender");
+  goto_xy(32,15);
+  printf("Age");
+  goto_xy(37,15);
+  printf("Address");
+  goto_xy(49,15);
+  printf("Contact No.");
+  goto_xy(64,15);
+  printf("Email");
+  goto_xy(88,15);
+  printf("Problem");
+
+  printf("**************************************************");
+  row = 17;
+
+  while(fscanf(op,"%s %s %s %c %i %s %s %s %s\n",p.FirstName,p.MiddleName,p.LastName,p.Gender,p.Age,p.District,p.ContactNo,p.Email,p.Reason)!=EOF);
+  {
+    goto_xy(1,row);
+    printf("%s %s %s",p.FirstName,p.MiddleName,p.LastName);
+    goto_xy(20,row);
+    printf("%c",p.Gender);
+    goto_xy(32,row);
+    printf("%i",p.Age);
+    goto_xy(37,row);
+    printf("%s",p.District);
+    goto_xy(49,row);
+    printf("%s",p.ContactNo);
+    goto_xy(64,row);
+    printf("%s",p.Email);
+    goto_xy(88,row);
+    printf("%s",p.Reason);
+    row++;
+  }
+}
